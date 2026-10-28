@@ -15,3 +15,8 @@
 
 /* Manage App Store Subscriptions */
 "manage_appstore_subscriptions" = "Quản lý đăng ký App Store";
+
+/* Errors */
+"error_title" = "Không thể mở trang đăng ký";
+"error_no_active_scene" = "Không tìm thấy cửa sổ đang hoạt động. Vui lòng thử lại.";
+"ok" = "OK";

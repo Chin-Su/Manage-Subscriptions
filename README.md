@@ -10,6 +10,10 @@
   <b>A simple iOS app for managing Sandbox settings and subscriptions.</b>
 </p>
 
+<p align="center">
+  Forked from <a href="https://github.com/thanhdo1110/Manage-Subscriptions">thanhdo1110/Manage-Subscriptions</a> by ctdoteam.
+</p>
+
 ---
 
 ## 📱 Screenshots
@@ -40,7 +44,7 @@
 
 1. Clone this repository:
 ```bash
-git clone https://github.com/thanhdo1110/Manage-Subscriptions.git
+git clone https://github.com/Chin-Su/Manage-Subscriptions.git
 ```
 
 2. Open `sandbox.xcodeproj` in Xcode
@@ -95,16 +99,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ---
 
 ## TestFlight
-• SANDBOX [CTDO](https://testflight.apple.com/join/jH3StjJu)
+• SANDBOX (original author's build) [CTDO](https://testflight.apple.com/join/jH3StjJu)
   
 ## 👨‍💻 Author
 
-**ctdoteam**
+**vn.5137** - maintainer of this fork
+
+### Original author
+
+This project is a fork of [thanhdo1110/Manage-Subscriptions](https://github.com/thanhdo1110/Manage-Subscriptions), created by **ctdoteam**.
 
 - Website: [ctdo.net](https://ctdo.net)
 
 ---
 
 <p align="center">
-  Made with ❤️ by ctdoteam
+  Made with ❤️ by vn.5137 · Forked from ctdoteam
 </p>

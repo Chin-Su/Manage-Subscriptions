@@ -9,6 +9,9 @@ import SwiftUI
 import StoreKit
 
 struct ContentView: View {
+    @State private var showError = false
+    @State private var errorMessage = ""
+
     private var appVersion: String {
         let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "—"
         let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String ?? "—"
@@ -100,17 +103,20 @@ struct ContentView: View {
             // Footer
             Section {
             } footer: {
-                Button(action: openCtdoWebsite) {
-                    Text("\(appVersion) • © ctdoteam")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .frame(maxWidth: .infinity)
-                }
+                Text("\(appVersion) • © vn.5137")
+                    .font(.footnote)
+                    .foregroundColor(.secondary)
+                    .frame(maxWidth: .infinity)
             }
         }
         .listStyle(InsetGroupedListStyle())
         .navigationTitle("")
         .navigationBarHidden(true)
+        .alert(NSLocalizedString("error_title", comment: ""), isPresented: $showError) {
+            Button(NSLocalizedString("ok", comment: ""), role: .cancel) {}
+        } message: {
+            Text(errorMessage)
+        }
     }
 
     private func openAppSettings() {
@@ -119,22 +125,32 @@ struct ContentView: View {
     }
 
     private func openSandboxSubscriptions() {
-        if #available(iOS 15.0, *) {
-            guard let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
-            Task {
-                try? await AppStore.showManageSubscriptions(in: scene)
+        guard let scene = activeWindowScene else {
+            showSubscriptionError(NSLocalizedString("error_no_active_scene", comment: ""))
+            return
+        }
+        Task { @MainActor in
+            do {
+                try await AppStore.showManageSubscriptions(in: scene)
+            } catch {
+                showSubscriptionError(error.localizedDescription)
             }
         }
+    }
+
+    private var activeWindowScene: UIWindowScene? {
+        let scenes = UIApplication.shared.connectedScenes.compactMap { $0 as? UIWindowScene }
+        return scenes.first { $0.activationState == .foregroundActive }
+            ?? scenes.first { $0.activationState == .foregroundInactive }
+    }
+
+    private func showSubscriptionError(_ message: String) {
+        errorMessage = message
+        showError = true
     }
     
     private func openAppStoreSubscriptions() {
         if let url = URL(string: "https://apps.apple.com/account/subscriptions") {
-            UIApplication.shared.open(url)
-        }
-    }
-
-    private func openCtdoWebsite() {
-        if let url = URL(string: "https://ctdo.net") {
             UIApplication.shared.open(url)
         }
     }
